@@ -11,7 +11,6 @@ bl_info = {
 import bpy
 
 
-
 def valet(self, context):
     layout= self.layout
     split = layout.split
@@ -24,7 +23,7 @@ class valet_baker(bpy.types.Operator):
     bl_label = "Bake Shapekey Drivers"
     bl_description = "Bakes ShapeKey drivers to fcurves from Start to Endframe"
 
-    def driver_valet(self, context):
+    def execute(self, context):
         context = bpy.context
         scene = context.scene
         object = context.object
