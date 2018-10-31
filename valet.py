@@ -51,8 +51,20 @@ class valet_braker(bpy.types.Operator):
         drivers_data = ob.animation_data.drivers
 
         for dr in drivers_data:
-            ob.driver_remove(dr.data_path, -1)
-            # bpy.ops.anim.channels_setting_enable(type='MUTE')
+            # ob.driver_remove(dr.data_path, -1)
+            bpy.ops.anim.channels_setting_enable(type='MUTE')
+
+# import bpy
+#
+# #save the current area
+# area = bpy.context.area.type
+#
+# bpy.context.area.type = 'GRAPH_EDITOR'
+#
+# bpy.ops.anim.channels_setting_toggle(type='MUTE')
+#
+# bpy.context.area.type = area
+
 
         return {'FINISHED'}
 
