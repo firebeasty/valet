@@ -46,16 +46,21 @@ class valet_braker(bpy.types.Operator):
     bl_description = "Removes drivers on shapekeys [WARNING: DESTRUCTIVE]"
 
     def execute(self, context):
-        ob = bpy.context.active_object.data.shape_keys
-        # ob = bpy.ops.anim.channels_setting_enable(type='MUTE')
+        # ob = bpy.context.active_object.data.shape_keys
+        ob = bpy.ops.anim.channels_setting_enable(type='MUTE')
         drivers_data = ob.animation_data.drivers
 
         for dr in drivers_data:
-            # ob.driver_remove(dr.data_path, -1)
-            bpy.ops.anim.channels_setting_enable(type='MUTE')
+            ob.driver_remove(dr.data_path, -1)
+            # area = bpy.context.area.type
+            # bpy.context.area.type = 'GRAPH_EDITOR'
+            #
+            # bpy.ops.anim.channels_setting_enable(type='MUTE')
+            #
+            # bpy.context.area.type = area
 
-# import bpy
-#
+            # bpy.ops.anim.channels_setting_enable(type='MUTE')
+
 # #save the current area
 # area = bpy.context.area.type
 #
