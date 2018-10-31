@@ -17,6 +17,8 @@ def valet(self, context):
 
     row = layout.row()
     row.operator('valet.baker', icon='ANIM_DATA')
+    row = layout.row()
+    row.operator('valet.braker', icon='RADIO')
 
 class valet_baker(bpy.types.Operator):
     bl_idname = 'valet.baker'
@@ -36,13 +38,33 @@ class valet_baker(bpy.types.Operator):
                 object.data.shape_keys.keyframe_insert(values.data_path)
             frame = frame + 1
 
+        return {'FINISHED'}
+
+class valet_braker(bpy.types.Operator):
+    bl_idname = 'valet.braker'
+    bl_label = "Remove Shapekey Drivers"
+    bl_description = "Removes drivers on shapekeys [WARNING: DESTRUCTIVE]"
+
+    def execute(self, context):
+        ob = bpy.context.active_object.data.shape_keys
+        # ob = bpy.ops.anim.channels_setting_enable(type='MUTE')
+        drivers_data = ob.animation_data.drivers
+
+        for dr in drivers_data:
+            ob.driver_remove(dr.data_path, -1)
+            # bpy.ops.anim.channels_setting_enable(type='MUTE')
+
+        return {'FINISHED'}
+
 
 def register():
     bpy.types.DATA_PT_shape_keys.append(valet)
     bpy.utils.register_class(valet_baker)
+    bpy.utils.register_class(valet_braker)
 
 def unregister():
     bpy.utils.unregister_class(valet_baker)
+    bpy.utils.unregister_class(valet_braker)
     bpy.types.DATA_PT_shape_keys.remove(valet)
 
 if __name__ == "__main__":
