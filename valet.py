@@ -11,7 +11,7 @@ bl_info = {
 import bpy
 
 
-def valet(self, context):
+def draw_valet(self, context):
     layout= self.layout
     split = layout.split
 
@@ -75,14 +75,14 @@ class valet_braker(bpy.types.Operator):
 
 
 def register():
-    bpy.types.DATA_PT_shape_keys.append(valet)
+    bpy.types.DATA_PT_shape_keys.append(draw_valet)
     bpy.utils.register_class(valet_baker)
     bpy.utils.register_class(valet_braker)
 
 def unregister():
     bpy.utils.unregister_class(valet_baker)
     bpy.utils.unregister_class(valet_braker)
-    bpy.types.DATA_PT_shape_keys.remove(valet)
+    bpy.types.DATA_PT_shape_keys.remove(draw_valet)
 
 if __name__ == "__main__":
     register()
