@@ -16,13 +16,15 @@ def draw_valet(self, context):
     split = layout.split
 
     row = layout.row()
-    row.operator('valet.baker', icon='ANIM_DATA')
+    row.operator('valet.baker', icon='KEY_HLT')
     row = layout.row()
     row.operator('valet.braker', icon='RADIO')
+    row = layout.row()
+    row.operaotr('valet.chauffeur', icon='ANIM_DATA')
 
 class valet_baker(bpy.types.Operator):
     bl_idname = 'valet.baker'
-    bl_label = "Bake Shapekey Drivers"
+    bl_label = "Bake Keyframes from Driven ShapeKeys"
     bl_description = "Bakes ShapeKey drivers to fcurves from Start to Endframe"
 
     def execute(self, context):
@@ -43,33 +45,23 @@ class valet_baker(bpy.types.Operator):
 class valet_braker(bpy.types.Operator):
     bl_idname = 'valet.braker'
     bl_label = "Remove Shapekey Drivers"
-    bl_description = "Removes drivers on shapekeys [WARNING: DESTRUCTIVE]"
+    bl_description = "Removes drivers on shapekeys"
 
     def execute(self, context):
-        # ob = bpy.context.active_object.data.shape_keys
-        ob = bpy.ops.anim.channels_setting_enable(type='MUTE')
+        ob = bpy.context.active_object.data.shape_keys
+        # ob = bpy.ops.anim.channels_setting_enable(type='MUTE')
         drivers_data = ob.animation_data.drivers
 
+        # for dr in drivers_data:
         for dr in drivers_data:
-            ob.driver_remove(dr.data_path, -1)
-            # area = bpy.context.area.type
-            # bpy.context.area.type = 'GRAPH_EDITOR'
-            #
-            # bpy.ops.anim.channels_setting_enable(type='MUTE')
-            #
-            # bpy.context.area.type = area
+            area = bpy.context.area.type
+            bpy.context.area.type = 'GRAPH_EDITOR'
+            bpy.context.space_data.mode = 'DRIVERS'
 
-            # bpy.ops.anim.channels_setting_enable(type='MUTE')
+            bpy.ops.anim.channels_select_all_toggle(invert=False)
+            bpy.ops.anim.channels_setting_enable(type='MUTE')
 
-# #save the current area
-# area = bpy.context.area.type
-#
-# bpy.context.area.type = 'GRAPH_EDITOR'
-#
-# bpy.ops.anim.channels_setting_toggle(type='MUTE')
-#
-# bpy.context.area.type = area
-
+            bpy.context.area.type = area
 
         return {'FINISHED'}
 
