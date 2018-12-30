@@ -21,12 +21,12 @@ def draw_valet(self, context):
     col.label(text="Bake to Keys:")
     col = layout.column(align=True)
     col.operator('valet.baker', icon='KEY_HLT')
-    col.operator('valet.braker', icon='RADIO')
+    col.operator('valet.braker', icon='KEY_DEHLT')
     col = layout.column()
     col.label(text="Revert to Drivers:")
     col = layout.column(align=True)
     col.operator('valet.choker', icon='KEY_DEHLT')
-    col.operator('valet.chauffeur', icon='ANIM_DATA')
+    col.operator('valet.chauffeur', icon='KEY_HLT')
 
 
 
