@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Valet",
     "category": "Animation",
-    "version": (2, 0, 0),
+    "version": (2, 0, 1),
     "blender": (2, 80, 0),
     "author": "Keith Morgan",
     "location": "Properties > Data > ShapeKeys",
